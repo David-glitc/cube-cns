@@ -4,7 +4,6 @@ Human-readable names → Cube account keys on Signet, with transfers and balance
 
 **Author:** David — [x.com/davidpereishim](https://x.com/davidpereishim)
 
-**Donations:** [DONATIONS.md](DONATIONS.md) · Mainnet: `bc1q9pwe4pnsnual27jq999parh00wtg5k5jndt9dy` · Signet: `tb1q8t9w7eltf79s9qjyfgymwx6p2a6u0xu873c4vk` ([treasury](config/treasury.public.json))
 
 See **[docs/CNS.md](docs/CNS.md)** for the full program reference.
 
@@ -47,3 +46,5 @@ deploy 5000 0x04636e7372...
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [AUTHORS.md](AUTHORS.md).
+
+**Donations:** [DONATIONS.md](DONATIONS.md) · Mainnet: `bc1q9pwe4pnsnual27jq999parh00wtg5k5jndt9dy` · Signet: `tb1q8t9w7eltf79s9qjyfgymwx6p2a6u0xu873c4vk` ([treasury](config/treasury.public.json))
