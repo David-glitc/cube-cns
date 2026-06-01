@@ -1,103 +1,477 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark thebox" lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CNS — Cube Name Service</title>
-  <link rel="stylesheet" href="/static/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#0a2e14" />
+  <meta name="description" content="TheBox CNS — register and resolve .cube names on Bitcoin Signet. Cube Name Service wallet, dashboard, and docs." />
+  <meta name="application-name" content="TheBox CNS" />
+  <link rel="canonical" href="https://cube.atomiclabs.cc/" />
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/static/og-image.png" />
+  <link rel="manifest" href="/static/site.webmanifest" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="TheBox CNS" />
+  <meta property="og:title" content="TheBox CNS — Cube Name Service" />
+  <meta property="og:description" content="Register and resolve .cube names on Bitcoin Signet. Public app for Cube Name Service." />
+  <meta property="og:url" content="https://cube.atomiclabs.cc/" />
+  <meta property="og:image" content="https://cube.atomiclabs.cc/static/og-image.png" />
+  <meta property="og:image:alt" content="TheBox CNS — Cube Name Service on Bitcoin Signet" />
+  <meta property="og:image:width" content="1536" />
+  <meta property="og:image:height" content="1024" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TheBox CNS — Cube Name Service" />
+  <meta name="twitter:description" content="Register and resolve .cube names on Bitcoin Signet." />
+  <meta name="twitter:image" content="https://cube.atomiclabs.cc/static/og-image.png" />
+  <title>TheBox CNS — Cube Name Service</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Geist:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/thebox.css" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-secondary": "#4d2600",
+            "surface-container-low": "#0d0d0d",
+            "on-surface-variant": "#baccb0",
+            "surface-dim": "#050505",
+            "on-background": "#e2e2e2",
+            "surface-container-highest": "#353535",
+            "surface-container-high": "#1a1a1a",
+            "on-tertiary": "#313030",
+            "tertiary-fixed-dim": "#c8c6c5",
+            "inverse-on-surface": "#303030",
+            "on-primary-fixed": "#022100",
+            "surface-variant": "#353535",
+            "tertiary-fixed": "#353535",
+            "on-secondary-fixed-variant": "#6e3900",
+            "error-container": "#93000a",
+            "tertiary-container": "#1a1a1a",
+            "tertiary": "#2a2a2a",
+            "surface-container": "#141414",
+            "on-tertiary-container": "#626161",
+            "secondary-fixed-dim": "#ffb77d",
+            "on-tertiary-fixed": "#1c1b1b",
+            "surface": "#0a0a0a",
+            "outline-variant": "#2c3b25",
+            "primary-container": "#39ff14",
+            "surface-tint": "#2ae500",
+            "on-error-container": "#ffdad6",
+            "surface-bright": "#1a1a1a",
+            "background": "#050505",
+            "on-error": "#690005",
+            "secondary-fixed": "#ffdcc3",
+            "on-secondary-container": "#603100",
+            "secondary-container": "#fd8b00",
+            "error": "#ffb4ab",
+            "on-primary-container": "#107100",
+            "outline": "#45563c",
+            "primary-fixed-dim": "#2ae500",
+            "on-secondary-fixed": "#2f1500",
+            "inverse-primary": "#106e00",
+            "on-surface": "#e2e2e2",
+            "on-primary": "#053900",
+            "surface-container-lowest": "#050505",
+            "primary-fixed": "#79ff5b",
+            "inverse-surface": "#e2e2e2",
+            "secondary": "#ffb77d",
+            "on-tertiary-fixed-variant": "#474746",
+            "primary": "#efffe3",
+            "on-primary-fixed-variant": "#095300"
+          },
+          borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", "2xl": "1rem", full: "9999px" },
+          spacing: { "container-max": "1280px", unit: "8px", margin: "32px", gutter: "24px" },
+          fontFamily: {
+            "display-lg": ["Sora"],
+            "headline-lg": ["Sora"],
+            "headline-md": ["Sora"],
+            "label-mono": ["JetBrains Mono"],
+            "body-lg": ["Geist"],
+            "body-md": ["Geist"],
+            "button-text": ["Sora"]
+          },
+          fontSize: {
+            "headline-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "headline-md": ["32px", { lineHeight: "40px", fontWeight: "600" }],
+            "label-mono": ["14px", { lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "500" }],
+            "body-lg": ["18px", { lineHeight: "28px" }],
+            "body-md": ["16px", { lineHeight: "24px" }],
+            "button-text": ["16px", { lineHeight: "16px", fontWeight: "700" }]
+          }
+        }
+      }
+    };
+  </script>
 </head>
-<body>
-  <header>
-    <h1>CNS</h1>
-    <p class="sub">Cube Name Service — by <a href="https://x.com/davidpereishim" target="_blank" rel="noopener">@davidpereishim</a></p>
-    <div class="header-balances">
-      <span class="pill" id="contract-balance-pill">contract —</span>
-      <button type="button" class="btn small" id="sync-btn">Sync index</button>
+<body class="font-body-md text-on-surface antialiased overflow-x-hidden min-h-screen">
+  <div id="toast" class="toast view-hidden" hidden></div>
+
+  <header class="w-full h-16 bg-background/80 backdrop-blur-md border-b border-outline-variant flex justify-between items-center px-4 md:px-8 fixed top-0 z-50">
+    <div class="font-headline-md text-xl font-bold text-primary tracking-tighter flex items-center gap-2">
+      <div class="w-8 h-8 bg-primary-container rounded-lg flex items-center justify-center">
+        <span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1">deployed_code</span>
+      </div>
+      TheBox CNS
+    </div>
+    <div class="app-header-wallet md:hidden">
+      <span id="network-pill-mobile" class="font-label-mono text-[9px] text-outline border border-outline-variant px-1.5 py-0.5 rounded-full uppercase hidden sm:inline">SIGNET</span>
+      <button type="button" id="connect-wallet-btn-mobile" class="header-cta bg-primary-container text-on-primary-container font-label-mono uppercase rounded-xl hover:opacity-90">
+        Account
+      </button>
+    </div>
+    <div class="hidden md:flex items-center gap-6">
+      <span id="network-pill" class="font-label-mono text-[10px] text-outline border border-outline-variant px-2 py-1 rounded-full uppercase">SIGNET</span>
+      <button type="button" id="connect-wallet-btn" class="bg-primary-container text-on-primary-container px-6 py-2 font-button-text uppercase tracking-wider rounded-2xl hover:opacity-90">
+        Get Cube Account
+      </button>
     </div>
   </header>
 
-  <main class="grid">
-    <section class="card">
-      <h2>Your balance</h2>
-      <form id="balance-form">
-        <label>Account (64 hex) or name
-          <input name="query" placeholder="account hex or alice.cube" />
-        </label>
-        <button type="submit">Show balance</button>
-      </form>
-      <div class="balance-display" id="balance-display">—</div>
-    </section>
-
-    <section class="card">
-      <h2>Register</h2>
-      <form id="reg-form">
-        <label>Name <input name="name" placeholder="alice.cube" required pattern="[a-z0-9.-]+" /></label>
-        <label>Account (64 hex) <input name="account" placeholder="account key" required minlength="64" maxlength="64" /></label>
-        <button type="submit">Register</button>
-      </form>
-      <pre id="reg-result" class="result"></pre>
-    </section>
-
-    <section class="card">
-      <h2>Transfer</h2>
-      <p class="sub">CNS xfer pays from contract balance; move pays from your account.</p>
-      <form id="xfer-form">
-        <label>To name <input name="to_name" placeholder="bob.cube" required /></label>
-        <label>Amount (sats) <input name="amount" type="number" min="1" required /></label>
-        <label>Mode
-          <select name="mode">
-            <option value="cns">CNS contract (xfer)</option>
-            <option value="move">My account (move)</option>
-          </select>
-        </label>
-        <button type="submit">Prepare transfer</button>
-      </form>
-      <pre id="xfer-result" class="result"></pre>
-    </section>
-
-    <section class="card">
-      <h2>Resolve</h2>
-      <form id="resolve-form">
-        <label>Name <input name="name" placeholder="alice.cube" required /></label>
-        <button type="submit">Lookup</button>
-      </form>
-      <pre id="resolve-result" class="result"></pre>
-    </section>
-
-    <section class="card">
-      <h2>Renew owner</h2>
-      <form id="renew-form">
-        <label>Name <input name="name" required /></label>
-        <label>New account <input name="account" required minlength="64" maxlength="64" /></label>
-        <button type="submit">Renew</button>
-      </form>
-      <pre id="renew-result" class="result"></pre>
-    </section>
-
-    <section class="card wide">
-      <h2>Indexed names</h2>
-      <p class="sub" id="index-meta">—</p>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Name</th><th>Account</th><th>Balance</th><th>Status</th></tr>
-          </thead>
-          <tbody id="index-body"></tbody>
-        </table>
+  <div class="flex app-shell">
+    <aside class="hidden md:flex flex-col w-64 fixed left-0 top-16 h-[calc(100vh-64px)] bg-surface/50 backdrop-blur-sm border-r border-outline-variant py-8 px-4 z-40">
+      <div class="mb-4 px-2">
+        <p id="wallet-label" class="font-label-mono text-sm text-on-surface">No wallet</p>
+        <p id="wallet-sub" class="font-label-mono text-[10px] text-outline truncate">Import Cube account</p>
+        <div id="wallet-switcher" class="mt-3 space-y-1 hidden"></div>
+        <button type="button" id="add-wallet-btn" class="mt-2 w-full py-2 text-[10px] font-label-mono uppercase border border-outline-variant rounded-xl hover:border-outline hidden">
+          + Add account
+        </button>
       </div>
-    </section>
+      <nav class="flex flex-col gap-2 flex-grow">
+        <a href="#/home" data-nav="home" class="flex items-center gap-3 py-3 px-4 rounded-2xl font-label-mono text-sm transition-all text-on-surface-variant">
+          <span class="material-symbols-outlined">home</span> Home
+        </a>
+        <a href="#/guide" data-nav="guide" class="flex items-center gap-3 py-3 px-4 rounded-2xl font-label-mono text-sm transition-all text-on-surface-variant">
+          <span class="material-symbols-outlined">school</span> Setup Guide
+        </a>
+        <a href="#/import" data-nav="import" class="flex items-center gap-3 py-3 px-4 rounded-2xl font-label-mono text-sm transition-all text-on-surface-variant">
+          <span class="material-symbols-outlined">vpn_key</span> Import Account
+        </a>
+        <a href="#/dashboard" data-nav="dashboard" class="flex items-center gap-3 py-3 px-4 rounded-2xl font-label-mono text-sm transition-all">
+          <span class="material-symbols-outlined">dashboard</span> Dashboard
+        </a>
+        <a href="#/register" data-nav="register" class="flex items-center gap-3 py-3 px-4 rounded-2xl font-label-mono text-sm transition-all">
+          <span class="material-symbols-outlined">app_registration</span> Register
+        </a>
+        <a href="#/names" data-nav="names" class="flex items-center gap-3 py-3 px-4 rounded-2xl font-label-mono text-sm transition-all">
+          <span class="material-symbols-outlined">badge</span> My Names
+        </a>
+        <a href="#/settings" data-nav="settings" class="flex items-center gap-3 py-3 px-4 rounded-2xl font-label-mono text-sm transition-all">
+          <span class="material-symbols-outlined">settings</span> Settings
+        </a>
+      </nav>
+      <button type="button" id="disconnect-btn" hidden class="mt-auto border-2 border-secondary text-secondary py-3 font-button-text uppercase tracking-widest rounded-2xl hover:bg-secondary/10">
+        Disconnect
+      </button>
+    </aside>
 
-    <section class="card wide">
-      <h2>Program manifest</h2>
-      <pre id="manifest" class="result">Loading…</pre>
-    </section>
-  </main>
+    <main class="flex-grow app-main relative w-full bg-background">
+      <div id="cns-limitation-banner" class="w-full max-w-3xl mx-auto mb-6 rounded-xl border border-secondary-container/50 bg-secondary-container/15 px-4 py-3 text-sm text-on-surface-variant" role="status">
+        <p class="text-[11px] mb-2"><a href="/docs#/contract-flow" class="text-primary-container underline">See contract flow in docs →</a></p>
+        <p class="font-medium text-secondary mb-1">On-chain registration not available yet</p>
+        <p>
+          TheBox can <strong class="text-on-surface">reserve names in the index</strong> (shown as <strong class="text-on-surface">pending</strong>).
+          Confirming a name on Cube Signet requires a contract <code>register</code> call, but the Cube node has
+          <strong class="text-on-surface">no <code>call</code> command or Call API</strong> yet — only <code>deploy</code>, <code>move</code>, and <code>liftup</code>.
+          When Cube adds Call support, on-chain registration will work; until then, pending does not mean registered on-chain.
+        </p>
+      </div>
+      <!-- Landing / home -->
+      <section id="view-home" class="max-w-3xl mx-auto space-y-8 pb-24">
+        <div>
+          <h1 class="text-3xl font-semibold text-on-surface">TheBox CNS</h1>
+          <p class="text-on-surface-variant mt-2 text-sm leading-relaxed">
+            TheBox is the public app for <strong class="text-on-surface">Cube Name Service</strong> on Bitcoin Signet —
+            human-readable <code>.cube</code> names mapped to Cube account keys. This site indexes names and prepares register data;
+            <strong class="text-on-surface">on-chain confirmation is not possible yet</strong> (see notice above). Your keys stay in the browser.
+          </p>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <a href="#/register" class="px-4 py-2 bg-primary-container text-on-primary-container text-xs font-label-mono uppercase rounded-xl">Register a name</a>
+            <a href="#/guide" class="px-4 py-2 border border-outline-variant text-xs font-label-mono uppercase rounded-xl hover:border-outline">Get an account</a>
+            <a href="/docs#/contract-flow" class="px-4 py-2 border border-outline-variant text-xs font-label-mono uppercase rounded-xl hover:border-outline">Contract flow</a>
+            <a href="/docs" class="px-4 py-2 border border-outline-variant text-xs font-label-mono uppercase rounded-xl hover:border-outline">Docs</a>
+          </div>
+        </div>
+        <div class="border border-outline-variant rounded-xl p-4 text-sm bg-surface-container/30">
+          <h2 class="text-xs text-outline uppercase font-label-mono mb-2">CNS contract (Signet)</h2>
+          <p><span class="text-outline">Program:</span> <span id="home-program">cnsr</span></p>
+          <p class="font-label-mono text-[11px] break-all mt-1"><span class="text-outline">Contract ID:</span> <span id="home-contract-id">—</span></p>
+          <p class="mt-2"><span class="text-outline">Contract balance:</span> <span id="home-contract-bal">—</span></p>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="text-lg font-medium">Registered .cube names</h2>
+            <button type="button" id="home-refresh-names" class="text-[10px] font-label-mono uppercase text-outline hover:text-primary-container">Refresh</button>
+          </div>
+          <div class="table-scroll border border-outline-variant rounded-xl">
+            <table class="w-full text-left text-sm min-w-[320px]">
+              <thead class="font-label-mono text-[10px] text-outline border-b border-outline-variant">
+                <tr><th class="p-3">Name</th><th class="p-3">Account</th><th class="p-3">Status <span class="font-normal normal-case text-outline">(pending = index only)</span></th></tr>
+              </thead>
+              <tbody id="home-names-body">
+                <tr><td colspan="3" class="p-4 text-outline">Loading…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="text-xs text-outline">
+          <a href="https://github.com/cube-btc/cube" class="text-primary-container underline" target="_blank" rel="noopener">Cube</a>
+          · <a href="/docs#/contract-flow" class="text-primary-container underline">Contract flow</a>
+          · <a href="/docs" class="text-primary-container underline">Docs</a>
+        </p>
+      </section>
 
-  <footer class="donate-footer">
-    <p class="sub">Donations (treasury)</p>
-    <p id="treasury-addresses">Loading…</p>
-  </footer>
+      <!-- Setup guide -->
+      <section id="view-guide" class="view-hidden max-w-3xl mx-auto space-y-6 pb-24">
+        <div class="mb-4">
+          <h1 class="text-2xl font-semibold text-on-surface">Connect your Cube identity</h1>
+          <p class="font-body-md text-on-surface-variant mt-2">
+            TheBox is a <strong class="text-primary">Signet name app</strong> — register and resolve <code>.cube</code> names via API.
+            It does <strong>not</strong> run a shared Cube node in your browser.
+          </p>
+        </div>
+        <div class="guide-step space-y-4">
+          <p class="font-label-mono text-primary-container text-xs uppercase">Your keys (plain language)</p>
+          <ul class="text-sm text-on-surface-variant space-y-2 list-disc pl-5">
+            <li><strong class="text-on-surface">nsec</strong> — private seed (like a password). Never share it. TheBox does not store it on the server.</li>
+            <li><strong class="text-on-surface">Cube account</strong> — 64-character hex (your public identity on Cube Signet). This is what you import into TheBox.</li>
+          </ul>
+        </div>
+        <div class="guide-step">
+          <p class="font-label-mono text-primary-container text-xs mb-3 uppercase">Option A — New identity (in browser)</p>
+          <button type="button" id="btn-generate-identity" class="w-full py-4 bg-primary-container text-on-primary-container font-button-text uppercase rounded-2xl">Create new identity</button>
+          <div id="generated-keys" class="view-hidden mt-4 p-4 border border-primary-container/40 rounded-2xl bg-black font-label-mono text-xs space-y-2">
+            <p class="text-secondary text-[10px] uppercase">Copy now — not saved on server</p>
+            <p><span class="text-outline">nsec:</span> <span id="gen-nsec" class="text-primary-container break-all"></span></p>
+            <p><span class="text-outline">account:</span> <span id="gen-account" class="text-primary-container break-all"></span></p>
+            <button type="button" id="btn-use-generated" class="mt-2 w-full py-2 border border-primary-container text-primary-container uppercase rounded-xl text-[10px]">Use account in Import →</button>
+          </div>
+        </div>
+        <div class="guide-step">
+          <p class="font-label-mono text-xs text-outline mb-3 uppercase">Option B — Existing Cube node</p>
+          <p class="text-sm text-on-surface-variant">On your Cube node CLI run <code>rootaccount</code>, or paste <code>nsec</code> on Import. Fund Signet on your node with <code>liftaddr</code> then <code>liftup</code> (see Fund account on the dashboard).</p>
+        </div>
+        <div class="guide-step">
+          <p class="font-label-mono text-xs text-outline mb-2 uppercase">What is Cube?</p>
+          <p class="text-sm text-on-surface-variant">Cube is a Bitcoin virtual execution environment — smart contracts and accounts on Signet. TheBox is only the <code>.cube</code> name registry UI.</p>
+          <ul class="mt-2 text-sm space-y-1">
+            <li><a class="text-primary-container underline" href="https://github.com/cube-btc/cube" target="_blank" rel="noopener">Cube on GitHub</a></li>
+            <li><a class="text-primary-container underline" href="/docs#/contract-flow">Contract flow</a></li>
+            <li><a class="text-primary-container underline" href="/docs">All docs</a></li>
+          </ul>
+        </div>
+        <button type="button" id="guide-to-import" class="w-full py-3 bg-secondary-container text-on-secondary-container font-button-text uppercase rounded-2xl">Go to Import →</button>
+      </section>
 
-  <script src="/static/app.js"></script>
+      <!-- Import / unlock -->
+      <section id="view-import" class="view-hidden flex items-start md:items-center justify-center min-h-0 md:min-h-[calc(100vh-8rem)] py-4">
+        <div class="w-full max-w-lg bg-surface/90 backdrop-blur-xl border border-outline-variant cube-shadow rounded-2xl overflow-hidden">
+          <div class="h-1.5 w-full bg-gradient-to-r from-primary-container via-primary-container to-secondary-container"></div>
+          <div class="p-8 md:p-10">
+            <div class="flex items-center gap-4 mb-8">
+              <div class="w-12 h-12 bg-surface-container-highest border border-outline flex items-center justify-center rounded-xl">
+                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1">vpn_key</span>
+              </div>
+              <div>
+                <h1 class="font-headline-md text-2xl text-on-surface uppercase tracking-tight">Import Cube Account</h1>
+                <p class="font-label-mono text-xs text-on-surface-variant">Not a browser BTC wallet — Cube Signet identity</p>
+              </div>
+            </div>
+
+            <div id="import-panel">
+              <div class="mb-6 space-y-3">
+                <label class="font-label-mono text-[10px] text-outline uppercase">Paste nsec or account hex</label>
+                <textarea id="resolve-paste" class="thebox-input w-full rounded-2xl p-3 font-label-mono text-xs min-h-[80px]" placeholder="nsec1… or 64-char hex or rootaccount JSON"></textarea>
+                <button type="button" id="btn-resolve-paste" class="w-full py-2 border border-outline-variant font-label-mono text-xs uppercase rounded-xl hover:border-primary-container">Resolve to account</button>
+              </div>
+              <form id="import-form" class="space-y-8">
+                <div class="relative input-focus-accent group">
+                  <label class="absolute left-4 top-1/2 -translate-y-1/2 font-label-mono text-xs text-on-surface-variant transition-all pointer-events-none">CUBE ACCOUNT (64 HEX)</label>
+                  <input id="import-key" class="thebox-input w-full border border-outline p-4 pt-5 font-label-mono text-sm focus:border-primary-container outline-none rounded-2xl" type="text" autocomplete="off" required />
+                  <button type="button" id="toggle-key-vis" class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline text-[20px]">visibility_off</button>
+                </div>
+                <div class="relative input-focus-accent">
+                  <label class="absolute left-4 top-1/2 -translate-y-1/2 font-label-mono text-xs text-on-surface-variant transition-all pointer-events-none">LOCAL PASSWORD</label>
+                  <input id="import-pass" class="thebox-input w-full border border-outline p-4 pt-5 font-label-mono text-sm rounded-2xl" type="password" minlength="8" required />
+                </div>
+                <div class="relative input-focus-accent">
+                  <label class="absolute left-4 top-1/2 -translate-y-1/2 font-label-mono text-xs text-on-surface-variant transition-all pointer-events-none">CONFIRM PASSWORD</label>
+                  <input id="import-pass-confirm" class="thebox-input w-full border border-outline p-4 pt-5 font-label-mono text-sm rounded-2xl" type="password" minlength="8" required />
+                </div>
+                <button type="submit" class="w-full bg-primary-container text-on-primary-container py-4 font-button-text uppercase tracking-widest rounded-2xl">Import &amp; Continue</button>
+              </form>
+            </div>
+
+            <div id="unlock-panel" class="view-hidden">
+              <form id="unlock-form" class="space-y-6">
+                <p class="font-label-mono text-xs text-on-surface-variant">Saved on this device. Pick an account and enter your local password.</p>
+                <select id="wallet-select" class="thebox-input w-full border border-outline p-3 font-label-mono text-sm rounded-2xl hidden"></select>
+                <input id="unlock-pass" class="thebox-input w-full border border-outline p-4 font-label-mono text-sm rounded-2xl" type="password" required />
+                <button type="submit" class="w-full bg-primary-container text-on-primary-container py-4 font-button-text uppercase rounded-2xl">Unlock</button>
+              </form>
+            </div>
+
+            <p class="mt-6 text-center">
+              <button type="button" id="import-to-guide" class="font-label-mono text-sm text-secondary hover:text-primary-container underline uppercase">Need an account? Read the setup guide</button>
+            </p>
+            <div class="mt-6 p-4 border border-outline-variant bg-surface-container-low flex gap-3 rounded-2xl">
+              <span class="material-symbols-outlined text-primary-container">info</span>
+              <p class="text-[11px] font-label-mono leading-relaxed text-on-surface-variant">
+                Keys are encrypted in this browser only.
+                Site: <span id="domain-hint" class="text-primary-container">cube.atomiclabs.cc</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dashboard -->
+      <section id="view-dashboard" class="view-hidden max-w-3xl mx-auto space-y-5 pb-24" data-requires-wallet>
+        <div class="flex flex-wrap gap-2 items-center justify-between">
+          <h2 class="text-xl font-semibold text-on-surface">Dashboard</h2>
+          <button type="button" id="sync-index-btn" class="px-3 py-1.5 border border-outline-variant font-label-mono text-[10px] uppercase rounded-lg hover:border-outline">Sync index</button>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="border border-outline-variant rounded-xl p-4 bg-surface-container/40">
+            <p class="text-xs text-outline mb-1">Name</p>
+            <p id="hero-name" class="text-lg font-medium text-on-surface">—</p>
+            <p class="font-label-mono text-[11px] text-outline mt-2 flex items-center gap-1">
+              <span id="hero-account">—</span>
+              <button type="button" id="copy-account-btn" class="material-symbols-outlined text-sm hover:text-primary-container" title="Copy account">content_copy</button>
+            </p>
+          </div>
+          <div class="border border-outline-variant rounded-xl p-4 bg-surface-container/40">
+            <p class="text-xs text-outline mb-1">Cube balance (Signet)</p>
+            <p id="dash-balance" class="text-lg font-medium">—</p>
+            <p id="dash-balance-sub" class="text-[11px] text-outline mt-1">—</p>
+            <p id="dash-contract-pill" class="text-[10px] text-outline mt-2">CNS contract —</p>
+          </div>
+        </div>
+        <div class="border border-outline-variant rounded-xl p-4 bg-surface-container/30">
+          <h3 class="text-sm font-medium mb-2">Fund your Cube account</h3>
+          <p class="text-sm text-on-surface-variant mb-3">TheBox does not hold BTC. Onboard sats on <strong>your</strong> Cube node (Signet):</p>
+          <ol id="onboard-steps" class="text-sm text-on-surface-variant list-decimal pl-5 space-y-1 mb-3"></ol>
+          <p class="font-label-mono text-[10px] text-outline">Your account (for liftaddr):</p>
+          <code id="onboard-account" class="block text-[11px] font-label-mono break-all text-primary-container mt-1">—</code>
+          <p id="registration-fee-note" class="text-[11px] text-outline mt-3"></p>
+        </div>
+        <div class="border border-outline-variant rounded-xl overflow-hidden">
+          <div class="px-4 py-2 border-b border-outline-variant text-xs text-outline">Recent activity</div>
+          <div class="table-scroll">
+          <table class="w-full text-left text-sm min-w-[360px]">
+            <thead class="font-label-mono text-[10px] text-outline">
+              <tr><th class="p-3">Type</th><th class="p-3">Name</th><th class="p-3">Amount</th><th class="p-3">Status</th></tr>
+            </thead>
+            <tbody id="activity-body"></tbody>
+          </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Register -->
+      <section id="view-register" class="view-hidden max-w-xl mx-auto pb-24" data-requires-wallet>
+        <h2 class="text-xl font-semibold mb-2">Register a .cube name</h2>
+        <p class="text-xs text-on-surface-variant mb-4">Saving here adds a <strong>pending</strong> index entry only — not an on-chain registration until Cube supports contract calls.</p>
+        <div class="flex flex-col sm:flex-row gap-2 mb-6">
+          <input id="register-search" class="thebox-input flex-1 min-w-0 border border-outline-variant rounded-xl px-3 py-2 font-label-mono text-sm" placeholder="saturn.cube" type="text" />
+          <button type="button" id="verify-name-btn" class="px-4 py-2 bg-primary-container text-on-primary-container text-xs font-label-mono uppercase rounded-xl shrink-0">Check</button>
+        </div>
+        <div id="node-panel" class="mb-6 border border-outline-variant rounded-xl p-4 bg-surface-container/30 text-sm" data-requires-wallet>
+          <h3 class="text-sm font-medium mb-2">Cube node (SysMon)</h3>
+          <p class="text-xs text-on-surface-variant mb-3">Run Signet commands on your VPS node via SysMon. On-chain <code>register</code> needs Cube <code>call</code> support (not in CLI yet).</p>
+          <p id="node-status-line" class="text-[11px] font-label-mono text-outline mb-3">Node: checking…</p>
+          <div class="flex flex-wrap gap-2 mb-2">
+            <button type="button" data-node-cmd="coins" class="px-3 py-1.5 text-[10px] font-label-mono uppercase border border-outline-variant rounded-lg">coins</button>
+            <button type="button" data-node-cmd="liftaddr" class="px-3 py-1.5 text-[10px] font-label-mono uppercase border border-outline-variant rounded-lg">liftaddr</button>
+            <button type="button" data-node-cmd="liftup" class="px-3 py-1.5 text-[10px] font-label-mono uppercase border border-outline-variant rounded-lg">liftup</button>
+            <button type="button" data-node-cmd="deploy_cns" class="px-3 py-1.5 text-[10px] font-label-mono uppercase bg-secondary-container text-on-secondary-container rounded-lg">Deploy CNS</button>
+          </div>
+          <p class="text-[10px] text-outline mt-1">Whitelisted actions only — no raw shell input.</p>
+          <pre id="node-output" class="text-[10px] font-label-mono text-outline max-h-32 overflow-auto whitespace-pre-wrap mt-1" aria-live="polite"></pre>
+          <a href="/raw/docs/ONCHAIN-REGISTER.md" target="_blank" rel="noopener" class="text-xs text-primary-container underline mt-2 inline-block">On-chain walkthrough (david.cube / satoshi.cube)</a>
+        </div>
+        <div id="register-contract" class="mb-4 text-xs text-on-surface-variant border border-outline-variant rounded-xl p-3">
+          <span class="text-outline">CNS contract:</span>
+          <span id="reg-contract-id" class="font-label-mono text-[10px] break-all">—</span>
+        </div>
+        <div id="register-result" class="view-hidden border border-outline-variant rounded-xl p-4 bg-surface-container/40">
+          <h3 id="reg-display-name" class="text-lg font-medium mb-1">—</h3>
+          <p id="reg-availability" class="text-sm mb-3">—</p>
+          <p class="text-xs text-on-surface-variant mb-4">Use <strong>Save (pending index)</strong> to hold the name in TheBox. Call-package buttons prepare data for when Cube adds <code>call</code>; they cannot complete on-chain registration today.</p>
+          <button type="button" id="reg-register-btn" class="w-full py-3 bg-primary-container text-on-primary-container text-sm font-label-mono uppercase rounded-xl mb-3">
+            Save to index (pending only)
+          </button>
+          <details class="text-xs text-on-surface-variant mb-3">
+            <summary class="cursor-pointer font-label-mono uppercase text-outline">Advanced — call package (not on-chain yet)</summary>
+            <p class="mt-2 mb-2">Optional: build JSON for a future Cube <code>call</code>. Does not register on-chain with current Cube releases.</p>
+            <label class="block text-[10px] text-outline font-label-mono uppercase mb-1">nsec (verify only; submit step)</label>
+            <input id="reg-nsec" type="password" class="thebox-input w-full border border-outline-variant rounded-xl px-3 py-2 font-label-mono text-xs mb-2" placeholder="nsec1…" autocomplete="off" />
+            <div class="flex flex-wrap gap-2">
+              <button type="button" id="reg-build-call-btn" class="flex-1 py-2 border border-outline-variant text-xs font-label-mono uppercase rounded-xl">Build call package</button>
+              <button type="button" id="reg-submit-call-btn" class="flex-1 py-2 border border-outline-variant text-xs font-label-mono uppercase rounded-xl opacity-60" title="Cannot submit on-chain until Cube adds call">Prepare submit (index only)</button>
+            </div>
+          </details>
+          <pre id="reg-hint" class="mt-3 text-[10px] font-label-mono text-outline overflow-x-auto max-h-48 hidden"></pre>
+        </div>
+      </section>
+
+      <!-- My names -->
+      <section id="view-names" class="view-hidden max-w-container-max mx-auto" data-requires-wallet>
+        <h2 class="font-headline-md text-2xl text-primary mb-6">My Names</h2>
+        <div class="table-scroll bg-surface-container-low border border-outline-variant rounded-2xl">
+          <table class="w-full text-left min-w-[480px]">
+            <thead class="font-label-mono text-[10px] text-outline uppercase border-b border-outline-variant">
+              <tr><th class="p-4">Name</th><th class="p-4">Account</th><th class="p-4">Balance</th><th class="p-4">Status</th></tr>
+            </thead>
+            <tbody id="names-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Settings -->
+      <section id="view-settings" class="view-hidden max-w-lg mx-auto pb-24 space-y-5" data-requires-wallet>
+        <h2 class="text-xl font-semibold">Settings</h2>
+        <div class="border border-outline-variant rounded-xl p-4 space-y-3 text-sm">
+          <h3 class="text-xs text-outline uppercase font-label-mono">Saved accounts (this browser)</h3>
+          <ul id="settings-wallets" class="space-y-2 text-sm"></ul>
+          <button type="button" id="settings-add-wallet" class="text-xs font-label-mono text-primary-container underline">Add another account</button>
+        </div>
+        <div class="border border-outline-variant rounded-xl p-4 space-y-3 text-sm">
+          <h3 class="text-xs text-outline uppercase font-label-mono">Donate (Bitcoin mainnet)</h3>
+          <p class="text-on-surface-variant text-xs">Support CNS development — not Signet test coins.</p>
+          <p id="treasury-mainnet" class="font-label-mono text-[11px] break-all text-primary-container">—</p>
+          <a id="treasury-bip21" href="#" class="inline-block mt-2 px-3 py-2 border border-outline-variant rounded-lg text-xs font-label-mono uppercase hover:border-outline">Open in wallet</a>
+          <img id="treasury-qr" alt="Bitcoin donation QR" class="mt-2 w-40 h-40 bg-white rounded-lg hidden" />
+        </div>
+        <div class="border border-outline-variant rounded-xl p-4 space-y-2 text-sm">
+          <h3 class="text-xs text-outline uppercase font-label-mono">Cube &amp; docs</h3>
+          <ul class="space-y-1 text-sm">
+            <li><a class="text-primary-container underline" href="https://github.com/cube-btc/cube" target="_blank" rel="noopener">Cube (GitHub)</a> — execution environment on Bitcoin Signet</li>
+            <li><a class="text-primary-container underline" href="https://github.com/cube-btc/cube/blob/main/README.md" target="_blank" rel="noopener">Cube README</a></li>
+            <li><a class="text-primary-container underline" href="/docs#/contract-flow">Contract flow (diagrams)</a></li>
+            <li><a class="text-primary-container underline" href="/docs#/cns">CNS reference &amp; API</a></li>
+          </ul>
+          <p class="text-xs text-outline pt-2">Network: Cube Signet · CNS test treasury: <span id="treasury-signet" class="text-on-surface-variant break-all">—</span></p>
+        </div>
+        <p class="text-xs text-on-surface-variant">Author: <a class="text-primary-container underline" href="https://x.com/davidpereishim" target="_blank" rel="noopener">@davidpereishim</a></p>
+      </section>
+    </main>
+  </div>
+
+  <nav class="mobile-bottom-nav md:hidden fixed bottom-0 left-0 w-full bg-surface-container/90 backdrop-blur-md border-t border-outline-variant flex justify-around py-2 z-50 rounded-t-2xl">
+    <a href="#/home" data-nav="home" class="flex flex-col items-center gap-1 text-[10px] font-label-mono"><span class="material-symbols-outlined">home</span>HOME</a>
+    <a href="#/dashboard" data-nav="dashboard" class="flex flex-col items-center gap-1 text-[10px] font-label-mono"><span class="material-symbols-outlined">dashboard</span>DASH</a>
+    <a href="#/register" data-nav="register" class="flex flex-col items-center gap-1 text-[10px] font-label-mono"><span class="material-symbols-outlined">app_registration</span>REG</a>
+    <a href="#/names" data-nav="names" class="flex flex-col items-center gap-1 text-[10px] font-label-mono"><span class="material-symbols-outlined">badge</span>NAMES</a>
+    <a href="#/guide" data-nav="guide" class="flex flex-col items-center gap-1 text-[10px] font-label-mono text-on-surface-variant"><span class="material-symbols-outlined">school</span>GUIDE</a>
+    <a href="#/import" data-nav="import" class="flex flex-col items-center gap-1 text-[10px] font-label-mono text-on-surface-variant"><span class="material-symbols-outlined">vpn_key</span>IMPORT</a>
+  </nav>
+
+  <script src="/static/thebox.js"></script>
 </body>
 </html>

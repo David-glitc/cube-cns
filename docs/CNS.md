@@ -1,5 +1,7 @@
 # CNS — Cube Name Service
 
+See also: **[Contract flow](./CONTRACT-FLOW.md)** (diagrams) · [On-chain registration](./ONCHAIN-REGISTER.md)
+
 CNS maps human-readable names (e.g. `alice.cube`) to 32-byte Cube account keys on Signet. Registrations and lookups are stored in the contract’s **StateManager** tree; optional coin operations use **CoinManager** opcodes.
 
 ## Program `cnsr`

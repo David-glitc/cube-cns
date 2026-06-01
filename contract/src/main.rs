@@ -19,24 +19,47 @@ use std::collections::BTreeMap;
 use std::fs;
 use std::path::Path;
 
-/// Fix opcode bytes emitted by cube's compiler vs VM decoder (storage + coin).
-fn fix_opcode_bytes(bytes: &mut [u8]) {
-    for b in bytes.iter_mut() {
-        match *b {
-            0xc8 => *b = 0xcd, // SWRITE
-            0xc9 => *b = 0xce, // SREAD
-            0xc0 => *b = 0xca, // EXT_BALANCE
-            0xc1 => *b = 0xcb, // SELF_BALANCE
-            0xc2 => *b = 0xcc, // TRANSFER
-            _ => {}
-        }
+fn fix_opcode_byte(b: &mut u8) {
+    match *b {
+        0xc8 => *b = 0xcd, // SWRITE
+        0xc9 => *b = 0xce, // SREAD
+        0xc0 => *b = 0xca, // EXT_BALANCE
+        0xc1 => *b = 0xcb, // SELF_BALANCE
+        0xc2 => *b = 0xcc, // TRANSFER
+        _ => {}
     }
 }
 
-fn compile_method(method: &ProgramMethod) -> Vec<u8> {
-    let mut bytes = method.compile().expect("method compile");
-    fix_opcode_bytes(&mut bytes);
-    bytes
+/// Patch opcode scripts only (do not rewrite calldata type bytes like 0x05 Account).
+fn fix_opcode_bytes_in_methods(bytes: &mut [u8]) {
+    let mut i = 0usize;
+    let name_len = bytes[i] as usize;
+    i += 1 + name_len;
+    i += 1;
+    if bytes[i - 1] == 1 {
+        let meta_len = u16::from_le_bytes([bytes[i], bytes[i + 1]]) as usize;
+        i += 2 + meta_len;
+    }
+    let method_count = bytes[i] as usize;
+    i += 1;
+    for _ in 0..method_count {
+        let mlen = bytes[i] as usize;
+        i += 1 + mlen + 1; // name + method type
+        let nargs = bytes[i] as usize;
+        i += 1;
+        for _ in 0..nargs {
+            i += 1;
+            if bytes[i - 1] == 0x07 {
+                i += 1;
+            }
+        }
+        let opc = u16::from_le_bytes([bytes[i], bytes[i + 1]]) as usize;
+        i += 2;
+        for b in &mut bytes[i..i + opc] {
+            fix_opcode_byte(b);
+        }
+        i += opc;
+    }
 }
 
 fn main() {
@@ -138,7 +161,20 @@ fn main() {
 
     let compiled = program.compile().expect("program compile");
     let mut program_bytes = compiled;
-    fix_opcode_bytes(&mut program_bytes);
+
+    let mut raw_check = program_bytes.clone().into_iter();
+    match Program::decompile(&mut raw_check) {
+        Ok(_) => eprintln!("note: unfixed bytecode decompiles (legacy opcodes)"),
+        Err(e) => eprintln!("note: unfixed bytecode decompile failed: {e}"),
+    }
+
+    fix_opcode_bytes_in_methods(&mut program_bytes);
+
+    let mut check = program_bytes.clone().into_iter();
+    if let Err(e) = Program::decompile(&mut check) {
+        eprintln!("FATAL: CNS bytecode fails deploy decompile: {e}");
+        std::process::exit(1);
+    }
 
     let contract_id = program.contract_id();
 

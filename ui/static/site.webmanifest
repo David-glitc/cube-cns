@@ -1,0 +1,17 @@
+{
+  "name": "TheBox CNS",
+  "short_name": "TheBox",
+  "description": "Cube Name Service on Bitcoin Signet — register and resolve .cube names.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#0a2e14",
+  "icons": [
+    {
+      "src": "/static/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -306,6 +306,107 @@ def get_balance(account: str) -> dict:
     return dict(row) if row else {}
 
 
+def list_transfers(limit: int = 20) -> list[dict]:
+    conn = connect()
+    rows = [
+        dict(r)
+        for r in conn.execute(
+            "SELECT * FROM transfers ORDER BY id DESC LIMIT ?", (limit,)
+        )
+    ]
+    conn.close()
+    return rows
+
+
+def record_registration(name: str, account: str, status: str = "pending") -> int:
+    """Log a name registration in transfers for activity feed."""
+    return record_transfer(
+        name,
+        account.lower().replace("0x", ""),
+        0,
+        note=f"register:{status}",
+    )
+
+
+def list_activity_for_account(account: str, limit: int = 20) -> list[dict]:
+    acct = account.lower().replace("0x", "")
+    conn = connect()
+    transfers = [
+        dict(r)
+        for r in conn.execute(
+            """
+            SELECT id, to_name, to_account, amount, status, note, created_at
+            FROM transfers
+            WHERE to_account = ? OR note LIKE ?
+            ORDER BY id DESC
+            LIMIT ?
+            """,
+            (acct, f"%{acct}%", limit),
+        )
+    ]
+    names = [
+        dict(r)
+        for r in conn.execute(
+            """
+            SELECT name, name_hash, account, confirmed, source, updated_at
+            FROM names WHERE account = ?
+            ORDER BY updated_at DESC
+            LIMIT ?
+            """,
+            (acct, limit),
+        )
+    ]
+    conn.close()
+
+    rows: list[dict] = []
+    seen: set[str] = set()
+    for t in transfers:
+        kind = "transfer"
+        if (t.get("note") or "").startswith("register:"):
+            kind = "register"
+        key = f"t:{t['id']}"
+        seen.add(key)
+        rows.append(
+            {
+                "kind": kind,
+                "to_name": t.get("to_name"),
+                "amount": t.get("amount"),
+                "status": t.get("status"),
+                "note": t.get("note"),
+                "created_at": t.get("created_at"),
+            }
+        )
+    for n in names:
+        key = f"n:{n.get('name_hash')}"
+        if key in seen:
+            continue
+        rows.append(
+            {
+                "kind": "register",
+                "to_name": n.get("name"),
+                "amount": 0,
+                "status": "confirmed" if n.get("confirmed") else "pending",
+                "note": n.get("source") or "indexed",
+                "created_at": n.get("updated_at"),
+            }
+        )
+    rows.sort(key=lambda r: r.get("created_at") or "", reverse=True)
+    return rows[:limit]
+
+
+def list_names_for_account(account: str) -> list[dict]:
+    acct = account.lower().replace("0x", "")
+    conn = connect()
+    rows = [
+        dict(r)
+        for r in conn.execute(
+            "SELECT * FROM names WHERE account = ? ORDER BY name", (acct,)
+        )
+    ]
+    conn.close()
+    return rows
+
+
 def record_transfer(to_name: str, to_account: str | None, amount: int, note: str = "") -> int:
     conn = connect()
     cur = conn.execute(

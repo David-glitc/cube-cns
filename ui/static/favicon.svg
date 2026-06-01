@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="TheBox CNS">
+  <rect width="32" height="32" rx="8" fill="#0a2e14"/>
+  <path fill="#a8f5a2" d="M16 6 24 11v10l-8 5-8-5V11l8-5zm0 3.2L11.5 13v6L16 22.8 20.5 19v-6L16 9.2z"/>
+  <path fill="#4ade80" opacity=".35" d="M16 6v5.2L11.5 13 8 11 16 6z"/>
+</svg>

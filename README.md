@@ -36,6 +36,24 @@ python3 server/app.py
 
 Or: `./scripts/run-ui.sh` (sets `CUBE_ROOT` / `CNS_STORAGE_PATH` if unset).
 
+### Public URL (Traefik / Coolify)
+
+On the VPS (Coolify Traefik), run TheBox on the host (Cube node access required) and install the route:
+
+```bash
+cd cube-cns
+cp .env.example .env   # edit paths
+systemctl --user enable --now cns-ui.service
+CNS_PUBLIC_HOST=cube.atomiclabs.cc ./install-traefik-route.sh
+./scripts/shutdown-public-sysmon.sh   # remove public SysMon if present
+```
+
+Cube terminal is embedded at **https://cube.atomiclabs.cc/#/guide** (not SysMon).
+
+Point DNS **A** record `cube` → your server IP (same host as Coolify `80`/`443`). TLS is issued by Traefik (Let’s Encrypt).
+
+Local dev without Docker: copy `.env.example` → `.env` and `./start.sh` (bind `127.0.0.1` or `0.0.0.0` if your firewall allows Traefik → host).
+
 ## Deploy
 
 ```bash

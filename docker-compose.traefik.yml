@@ -1,0 +1,42 @@
+# CNS UI on the Coolify Docker network (Traefik backend: http://cns-ui:8780).
+# Start: docker compose -f docker-compose.traefik.yml up -d
+services:
+  cns-ui:
+    image: python:3.12-bookworm
+    container_name: cns-ui
+    restart: unless-stopped
+    env_file:
+      - .env
+    working_dir: /app
+    volumes:
+      - /home/david/cube-cns:/app
+      - /home/david/cube/storage/signet/states:/cube-states:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      CNS_HOST: 0.0.0.0
+      CNS_PORT: "8780"
+      CNS_PUBLIC_HOST: cube.atomiclabs.cc
+      CNS_NETWORK: signet
+      CNS_ALLOWED_HOSTS: cube.atomiclabs.cc,localhost,127.0.0.1,cns-ui
+      CNS_BLOCK_PUBLIC: "0"
+      CUBE_ROOT: /cube
+      CNS_STORAGE_PATH: /cube-states
+      CNS_SYSMON_URL: http://host.docker.internal:8765
+      CNS_SYSMON_TOKEN: ${CNS_SYSMON_TOKEN:-}
+      CNS_NODE_RELAY: "1"
+      CNS_NODE_RELAY_PUBLIC: "1"
+    command:
+      - bash
+      - -c
+      - |
+        pip install -q cryptography
+        pip install -q -r requirements.txt
+        python3 server/db.py || true
+        exec python3 server/app.py
+    networks:
+      - coolify
+
+networks:
+  coolify:
+    external: true

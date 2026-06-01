@@ -1,0 +1,28 @@
+# Traefik dynamic route — copy and replace CNS_HOST, then install via install-traefik-route.sh
+http:
+  middlewares:
+    cns-gzip:
+      compress: true
+  routers:
+    cns-http:
+      entryPoints:
+        - http
+      middlewares:
+        - redirect-to-https
+      rule: Host(`cube.example.com`)
+      service: cns
+    cns-https:
+      entryPoints:
+        - https
+      middlewares:
+        - cns-gzip
+      rule: Host(`cube.example.com`)
+      service: cns
+      tls:
+        certresolver: letsencrypt
+  services:
+    cns:
+      loadBalancer:
+        servers:
+          # Docker service on coolify network (see docker-compose.traefik.yml)
+          - url: "http://cns-ui:8780"

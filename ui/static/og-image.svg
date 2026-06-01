@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="TheBox CNS  Cube Name Service on Bitcoin Signet">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050505"/>
+      <stop offset="55%" stop-color="#0a0a0a"/>
+      <stop offset="100%" stop-color="#0a2e14"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a8f5a2" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#a8f5a2" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="280" y="350" fill="url(#glow)"/>
+  <circle cx="980" cy="120" r="180" fill="#a8f5a2" opacity="0.06"/>
+  <circle cx="200" cy="520" r="140" fill="#4ade80" opacity="0.05"/>
+  <!-- cube mark -->
+  <g transform="translate(96 168)">
+    <rect width="88" height="88" rx="20" fill="#0a2e14"/>
+    <path fill="#a8f5a2" d="M44 18 66 31v26L44 70 22 57V31L44 18zm0 9.2L29.5 37v20L44 66.5 58.5 57V37L44 27.2z"/>
+  </g>
+  <text x="210" y="210" fill="#e2e2e2" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="72" font-weight="700" letter-spacing="-2">TheBox CNS</text>
+  <text x="210" y="272" fill="#a8f5a2" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="32" font-weight="600" letter-spacing="0.04em">CUBE NAME SERVICE</text>
+  <text x="210" y="340" fill="#baccb0" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="28" font-weight="400">Register and resolve <tspan fill="#e2e2e2" font-weight="600">.cube</tspan> names on Bitcoin Signet</text>
+  <rect x="210" y="400" width="320" height="52" rx="26" fill="#0a2e14" stroke="#4ade80" stroke-width="2"/>
+  <text x="370" y="435" text-anchor="middle" fill="#a8f5a2" font-family="ui-monospace,Menlo,monospace" font-size="22" font-weight="500">cube.atomiclabs.cc</text>
+</svg>
