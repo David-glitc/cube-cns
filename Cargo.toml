@@ -1,0 +1,21 @@
+[package]
+name = "cube-cns-contract"
+version = "0.1.0"
+edition = "2021"
+description = "Cube Name Service — compile CNS program bytecode"
+license = "CC0-1.0"
+authors = ["David <https://x.com/davidpereishim>"]
+repository = "https://github.com/David-glitc/cube-cns"
+homepage = "https://github.com/David-glitc/cube-cns"
+
+[[bin]]
+name = "cns-compile"
+path = "contract/src/main.rs"
+
+[dependencies]
+cube = { path = "../cube" }
+hex = "0.4.3"
+serde_json = "1.0"
+
+[workspace]
+members = [".", "indexer"]

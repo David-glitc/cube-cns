@@ -1,0 +1,20 @@
+{
+  "project": "cube-cns",
+  "maintainer": {
+    "name": "david",
+    "x": "https://x.com/davidpereishim"
+  },
+  "donations": {
+    "mainnet": {
+      "btc": "bc1q9pwe4pnsnual27jq999parh00wtg5k5jndt9dy",
+      "label": "CNS treasury (mainnet)",
+      "note": "Bitcoin donations to CNS development"
+    },
+    "signet": {
+      "btc": "tb1q8t9w7eltf79s9qjyfgymwx6p2a6u0xu873c4vk",
+      "label": "CNS treasury (signet)",
+      "note": "Test donations only. Wallet cns_treasury on cube-bitcoind-signet volume."
+    }
+  },
+  "updated_at": "2026-06-01T00:00:00Z"
+}

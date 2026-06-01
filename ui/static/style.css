@@ -1,0 +1,81 @@
+:root {
+  --bg: #0a0e12;
+  --card: #121820;
+  --border: #1e2a38;
+  --text: #e8eef4;
+  --muted: #8b9cb3;
+  --green: #00e676;
+  --blue: #40c4ff;
+  --warn: #ffc107;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: ui-monospace, Menlo, monospace;
+  background: var(--bg);
+  color: var(--text);
+  padding: 1.25rem;
+  line-height: 1.5;
+}
+header { margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+h1 { color: var(--green); font-size: 1.4rem; }
+h2 { font-size: 0.75rem; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+.sub { color: var(--muted); font-size: 0.8rem; margin-top: 0.35rem; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+}
+.card.wide { grid-column: 1 / -1; }
+label { display: block; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.75rem; }
+input {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.5rem;
+  background: #0a0e12;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font: inherit;
+}
+button {
+  background: var(--green);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  padding: 0.55rem 1rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:hover { filter: brightness(1.1); }
+.result {
+  margin-top: 0.75rem;
+  padding: 0.65rem;
+  background: #06080b;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+  min-height: 2rem;
+}
+.table-wrap { overflow: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.72rem; }
+th, td { text-align: left; padding: 0.4rem 0.5rem; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); }
+.badge-ok { color: var(--green); }
+.badge-pending { color: var(--warn); }
+.header-balances { display: flex; gap: 0.5rem; align-items: center; margin-top: 0.5rem; flex-wrap: wrap; }
+.pill { padding: 0.2rem 0.55rem; border-radius: 4px; font-size: 0.68rem; background: #1a2634; border: 1px solid var(--border); color: var(--green); }
+.btn.small { padding: 0.25rem 0.5rem; font-size: 0.68rem; }
+.balance-display { margin-top: 0.75rem; font-size: 1.1rem; color: var(--green); }
+select { width: 100%; margin-top: 0.25rem; padding: 0.45rem; background: #0a0e12; border: 1px solid var(--border); color: var(--text); font: inherit; border-radius: 6px; }
+.donate-footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--muted); word-break: break-all; }
+.donate-footer a { color: var(--blue); }
+header a { color: var(--green); }

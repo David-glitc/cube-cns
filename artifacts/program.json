@@ -1,0 +1,22 @@
+{
+  "program_name": "cnsr",
+  "program_hex": "0x04636e737200060872656769737465720002071f0504007ccd6165077265736f6c76650001071f0400ce6161650572656e65770002071f0504007ccd616504786665720002071f0208007c6bce6c51cc61650762616c6e616d650001071f0400ce51ca650773656c6662616c00000400cb616165",
+  "contract_id": "d51acb40268b70da9edb3dee8e1ed4639c2d6e41268b5216005db9eacdcd28fe",
+  "methods": {
+    "balname": 4,
+    "register": 0,
+    "renew": 2,
+    "resolve": 1,
+    "selfbal": 5,
+    "xfer": 3
+  },
+  "deploy_example": "deploy 5000 0x04636e737200060872656769737465720002071f0504007ccd6165077265736f6c76650001071f0400ce6161650572656e65770002071f0504007ccd616504786665720002071f0208007c6bce6c51cc61650762616c6e616d650001071f0400ce51ca650773656c6662616c00000400cb616165",
+  "handlers": {
+    "register": "register(bytes32 name_hash, account)",
+    "resolve": "resolve(bytes32 name_hash)",
+    "renew": "renew(bytes32 name_hash, account)",
+    "xfer": "xfer(bytes32 name_hash, u32 amount) — pays from contract balance",
+    "balname": "balname(bytes32 name_hash) — balance of resolved account",
+    "selfbal": "selfbal() — contract balance"
+  }
+}

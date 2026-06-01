@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CNS — Cube Name Service</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header>
+    <h1>CNS</h1>
+    <p class="sub">Cube Name Service — by <a href="https://x.com/davidpereishim" target="_blank" rel="noopener">@davidpereishim</a></p>
+    <div class="header-balances">
+      <span class="pill" id="contract-balance-pill">contract —</span>
+      <button type="button" class="btn small" id="sync-btn">Sync index</button>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="card">
+      <h2>Your balance</h2>
+      <form id="balance-form">
+        <label>Account (64 hex) or name
+          <input name="query" placeholder="account hex or alice.cube" />
+        </label>
+        <button type="submit">Show balance</button>
+      </form>
+      <div class="balance-display" id="balance-display">—</div>
+    </section>
+
+    <section class="card">
+      <h2>Register</h2>
+      <form id="reg-form">
+        <label>Name <input name="name" placeholder="alice.cube" required pattern="[a-z0-9.-]+" /></label>
+        <label>Account (64 hex) <input name="account" placeholder="account key" required minlength="64" maxlength="64" /></label>
+        <button type="submit">Register</button>
+      </form>
+      <pre id="reg-result" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Transfer</h2>
+      <p class="sub">CNS xfer pays from contract balance; move pays from your account.</p>
+      <form id="xfer-form">
+        <label>To name <input name="to_name" placeholder="bob.cube" required /></label>
+        <label>Amount (sats) <input name="amount" type="number" min="1" required /></label>
+        <label>Mode
+          <select name="mode">
+            <option value="cns">CNS contract (xfer)</option>
+            <option value="move">My account (move)</option>
+          </select>
+        </label>
+        <button type="submit">Prepare transfer</button>
+      </form>
+      <pre id="xfer-result" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Resolve</h2>
+      <form id="resolve-form">
+        <label>Name <input name="name" placeholder="alice.cube" required /></label>
+        <button type="submit">Lookup</button>
+      </form>
+      <pre id="resolve-result" class="result"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Renew owner</h2>
+      <form id="renew-form">
+        <label>Name <input name="name" required /></label>
+        <label>New account <input name="account" required minlength="64" maxlength="64" /></label>
+        <button type="submit">Renew</button>
+      </form>
+      <pre id="renew-result" class="result"></pre>
+    </section>
+
+    <section class="card wide">
+      <h2>Indexed names</h2>
+      <p class="sub" id="index-meta">—</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Name</th><th>Account</th><th>Balance</th><th>Status</th></tr>
+          </thead>
+          <tbody id="index-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card wide">
+      <h2>Program manifest</h2>
+      <pre id="manifest" class="result">Loading…</pre>
+    </section>
+  </main>
+
+  <footer class="donate-footer">
+    <p class="sub">Donations (treasury)</p>
+    <p id="treasury-addresses">Loading…</p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

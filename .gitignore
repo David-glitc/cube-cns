@@ -1,0 +1,7 @@
+/target/
+/data/index.json
+/data/labels.json
+/data/cns.db
+cns-treasury-backup.json
+*.pem
+.env
