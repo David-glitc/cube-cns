@@ -33,14 +33,14 @@ flowchart LR
 ```mermaid
 sequenceDiagram
   participant U as User
-  participant N as Cube node
+  participant N as "Cube node"
   participant E as Engine
-  participant C as CNS contract
-  participant I as TheBox index
+  participant C as "CNS contract"
+  participant I as "TheBox index"
 
-  U->>N: fund account liftaddr / liftup
+  U->>N: fund account liftaddr then liftup
   U->>N: call register name_hash account
-  Note over N,E: Blocked today — no call CLI/TCP
+  Note over N,E: Blocked today - no call CLI or TCP
   N->>E: Call entry signed
   E->>C: execute register
   C->>C: SWRITE name_hash account
